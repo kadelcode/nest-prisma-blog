@@ -2,6 +2,7 @@ import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 import prettierPlugin from "eslint-plugin-prettier";
 import importPlugin from "eslint-plugin-import";
+import unusedImports from "eslint-plugin-unused-imports";
 import eslintConfigPrettier from "eslint-config-prettier";
 
 export default tseslint.config(
@@ -19,15 +20,36 @@ export default tseslint.config(
     plugins: {
       prettier: prettierPlugin,
       import: importPlugin,
+      "unused-imports": unusedImports,
     },
     rules: {
       "@typescript-eslint/explicit-module-boundary-types": "off",
-      "@typescript-eslint/no-unused-vars": [
+      "unused-imports/no-unused-imports": "warn",
+      "unused-imports/no-unused-vars": [
         "warn",
         {
           vars: "all",
+          varsIgnorePattern: "^_",
           args: "after-used",
-          ignoreRestSiblings: true,
+          argsIgnorePattern: "^_",
+        },
+      ],
+      "import/order": [
+        "warn",
+        {
+          groups: [
+            ["builtin", "external"],
+            ["internal", "parent", "sibling", "index"]
+          ],
+          pathGroups: [
+            {
+              pattern: "@/**",
+              group: "internal",
+            },
+          ],
+          pathGroupsExcludedImportTypes: ["builtin"],
+          "newlines-between": "always",
+          alphabetize: { order: "asc", caseInsensitive: true }
         },
       ],
       "prettier/prettier": [
