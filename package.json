@@ -1,8 +1,5 @@
 {
   "type": "commonjs",
-  "ts-node": {
-    "experimentalSpecifierResolution": "node"
-  },
   "scripts": {
     "build": "nest build",
     "start": "nest start",
