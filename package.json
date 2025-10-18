@@ -1,5 +1,8 @@
 {
-  "type": "module",
+  "type": "commonjs",
+  "ts-node": {
+    "experimentalSpecifierResolution": "node"
+  },
   "scripts": {
     "build": "nest build",
     "start": "nest start",
@@ -9,7 +12,12 @@
     "lint": "eslint 'src/**/*.{ts,js}' --max-warnings=0",
     "lint:fix": "eslint src/**/*.{ts,js} --fix",
     "prettier:check": "prettier --check src/**/*.{ts,js,json,md}",
-    "prettier:fix": "prettier --write src/**/*.{ts,js,json,md}"
+    "prettier:fix": "prettier --write src/**/*.{ts,js,json,md}",
+    "prisma:merge": "ts-node prisma/merge-prisma-schemas.ts",
+    "prisma:generate": "npx prisma generate",
+    "migrate:dev": "npm run merge:prisma && npx prisma migrate dev",
+    "db:push": "npm run merge:prisma && npx prisma db push",
+    "prisma:studio": "npx prisma studio"
   },
   "dependencies": {
     "@nestjs/common": "^11.1.6",
